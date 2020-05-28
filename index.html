@@ -1,0 +1,108 @@
+<html>
+<head>
+<title>database system</title>
+</head>
+<body>
+Even a seemingly simple CODASYL DML phrase can involve traversal
+Many event logs and sometimes complex access analysis
+Paths. These activities remain transparent to the database end user.
+However, dealing with these functions with the database management system contributes greatly
+To the level of performance the database user perceives (and pays for).
+In this work, we explore an aspect of system performance
+even this ward Database:
+Database reference patterns and implications for DBMS performance. Understanding reference patterns is essential to design
+Many of the DBMS components (for example, buffer management policies and query optimization)
+Methods, indexing techniques, etc.). These components must be designed with
+Minimize physical disk access in mind for improvement
+DBMS overall performance
+A We represent DBMS as a multi-layered system with three levels: Logical or DML
+Level, internal level, and physical level. Similar approaches have been taken
+Suggested in the literature (for example, [l, 28, 341); While the other authors focus
+On the specific objects and processes in each level, we emphasize dynamics
+Part of passing data. During query execution, DBMS accesses
+Various data objects from the database; The way you access current data
+An object from the previous is called the traversal type. Figure 1 illustrates our basic
+Form.THREE-LEVEL MODEL OF DATABASE TRAVERSAL:
+The first level is
+CODASYL DML level or logical level. The objects selected at this level are
+Records and groups, as defined in the CODASYL schema. At this level
+there are three type of traversal :(1) NEXT or PRIOR-corresponds to the DML function FIND NEXT record
+(WITHIN set);
+(2) UP/DOWN-corresponds to the DML functions FIND FIRST member
+WITHIN set, FIND LAST member WITHIN set, or FIND OWNER
+WITHIN set; and
+(3) DIRECT-which results from the execution of a FIND function that does
+Our second level is the internal leuel. Data objects at this level are record
+occurrences in their internal representation. The traversal types at the internal
+level correspond to the four ways to reach an internal record in a database: 
+POINTER - Uses a pointer stored in one record to access another record
+Within a group. Examples of indicators are the following, previous, and owner indicators;
+(2) INDEXED uses an index (for example, Tree B) to find the occurrence of the next record.
+The index can be defined for a record type or for a group.
+(3) Express the stored records through their physical communication. An
+An example is a survey over an area; And
+(4) CALCIDBKEY - Includes all types of internal travels, including use
+CALC, database, and currency indicators (currency indicators)
+It is usually stored in DBMS in the form of database key values).
+Must be set between the mental and the inner level:
+Certain traversal can be set at the logical DML level
+For a variety of types of traversal internally. For example, NEXT
+DML traversal can be a transition point, a pointer or a cascading transition internally, depending on the tuning mode chosen by
+Database administrator. Likewise, direct traversal with a defined key
+By the user
+At the DML level, it can be either INDEXED traversal or CALC / DBKEY
+Domestically, depending on the access path for the key chosen by
+Database administrator. (Note that the 1978 DDLC specifications were quoted
+CALC Keys Announced from Conceptual to Internal Diagram [6].)
+The third level is physical zeol. Data objects at this level are the database
+Pages. In this paper, it is assumed that the database consists of pages
+Equal size and every page has a unique page number. Types of traversal on
+The physical level characterizes DBMS page reference behavior:
+(1) LOCALITY-Informally, locality means that recently referenced pages have
+a higher probability of reference than other pages. If locality exists at the
+physical level, replacement strategies from virtual memory operating systems
+can be used in the DBMS buffer, since they are designed for the highly local
+addressing behavior of programs. Examples of such strategies are LRU and
+SECOND CHANCE [29].
+(2) SEQUENTIALITY-A traversal from a page with page number i to the page
+with page number i+l is called a sequential traversal. If sequentiality exists
+at the physical level, prefetching strategies should be considered for buffer
+management [23,30].
+(3) RANDOM ACCESS-All other page accesses are called random accesses. 
+this link show some detials:https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.semanticscholar.org%2Fpaper%2FLogical%252C-internal%252C-and-physical-reference-behavior-Effelsberg-Loomis%2Ff43c84f29519f922d78608bef43afe5dc0588930&psig=AOvVaw0ZqMuiAvgP45chzYGIP7Wy&ust=1590713311273000&source=images&cd=vfe&ved=0CA0QjhxqFwoTCLCf7f6q1ekCFQAAAAAdAAAAABAD
+Update database history. Examples of internal schema options are groups of DBAdefined groups (DBMS) are attempting to place group members
+Owner page (or subsequent pages), fragmentation area sizes, and initial load factors
+For pages. An example of how update history affects specific groups
+The sequence of uploading member records to a group; If uploaded in the specified order,
+Many DBMSs will group it on successive pages.
+One of the reasons maps are between interior and physical levels
+Hard to understand is the potential inconsistency of options in the internal layout.
+An example of this is a member record type with two different types of owner records in
+Two groups (V structure), where only member records can be grouped to one group
+Groups. Also, the fact that the update history is included makes it very difficult
+To use a specific internal scheme to predict the actual mass properties of
+CODASYL database :The motivation for our model is the following: if the appointments are between
+Three levels are fully understood, physical prediction must be predictable
+Referential behavior for a specific DML query. Such a prediction can be useful
+Many ways. At the physical level, the buffer management component ofDBMS can make replacement decisions based on knowledge of future references.
+For example, a long chain of single-page page accesses could be used
+Buffer frame, rather than LRU or FIFO strategy that can fill buffer
+With pages that will never be referenced
+Around typical traversal on a physical level is also useful for design
+Decisions related to this layer of DBMS. For example, the shadow page
+The update deployment technology can be replaced by an in-place update
+Technology with writing forward, if the sequence is an expected physical transmission
+this link:https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.semanticscholar.org%2Fpaper%2FLogical%252C-internal%252C-and-physical-reference-behavior-Effelsberg-Loomis%2Ff43c84f29519f922d78608bef43afe5dc0588930&psig=AOvVaw0ZqMuiAvgP45chzYGIP7Wy&ust=1590713311273000&source=images&cd=vfe&ved=0CA0QjhxqFwoTCLCf7f6q1ekCFQAAAAAdAAAAABAK
+At the DML level, prediction technology can help improve treatment
+Existing database programs with fixed internal schema. It can be used
+Transactional programmers give hints with performance implications for their DML programs.
+Finally, there is a better understanding of the assignments between the three criteria
+Very important for the database manager. Who knows
+Expected transaction load, the internal schema can be improved in the database
+Design time, even before DML programs compiled and implemented.
+Although we presented our model in the context of CODASYL systems,
+Adaptive to hierarchical systems is a direct matter for
+Relational systems, types of traversal must be redefined, perhaps
+It is also useful to add a fourth level to the relational query language processor.
+</body>
+</html>
